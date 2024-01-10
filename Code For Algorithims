@@ -1,0 +1,91 @@
+//Bubble Sort 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <chrono>
+
+using namespace std;
+using namespace chrono;
+
+void bubbleSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+int main() {
+    const int vectorSize = 100000;
+
+    vector<int> data(vectorSize);
+    for (int i = 0; i < vectorSize; ++i) {
+        data[i] = vectorSize - i;
+    }
+
+    auto bubbleStart = high_resolution_clock::now();
+    bubbleSort(data);
+    auto bubbleEnd = high_resolution_clock::now();
+    auto bubbleDuration = duration_cast<milliseconds>(bubbleEnd - bubbleStart);
+
+    cout << "Bubble Sort Execution Time: " << bubbleDuration.count() << " milliseconds" << endl;
+
+    // Displaying only the first 10 and last 10 elements for brevity
+    cout << "First 10 elements after Bubble Sort: ";
+    for (int i = 0; i < min(10, vectorSize); ++i) {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Last 10 elements after Bubble Sort: ";
+    for (int i = max(0, vectorSize - 10); i < vectorSize; ++i) {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+// STLSort.cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <chrono>
+
+using namespace std;
+using namespace chrono;
+
+int main() {
+    const int vectorSize = 100000;
+
+    vector<int> data(vectorSize);
+    for (int i = 0; i < vectorSize; ++i) {
+        data[i] = vectorSize - i;
+    }
+
+    auto stlStart = high_resolution_clock::now();
+    sort(data.begin(), data.end());
+    auto stlEnd = high_resolution_clock::now();
+    auto stlDuration = duration_cast<milliseconds>(stlEnd - stlStart);
+
+    cout << "STL Sort Execution Time: " << stlDuration.count() << " milliseconds" << endl;
+
+    // Displaying only the first 10 and last 10 elements for brevity
+    cout << "First 10 elements after STL Sort: ";
+    for (int i = 0; i < min(10, vectorSize); ++i) {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Last 10 elements after STL Sort: ";
+    for (int i = max(0, vectorSize - 10); i < vectorSize; ++i) {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
